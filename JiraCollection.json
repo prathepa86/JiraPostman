@@ -1,0 +1,242 @@
+{
+	"info": {
+		"_postman_id": "bde2f1a8-71ba-4ca5-ba0d-fbcb42133eab",
+		"name": "Jira",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37071298"
+	},
+	"item": [
+		{
+			"name": "CRUD",
+			"item": [
+				{
+					"name": "Create issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonResp=pm.response.json();\r",
+									"let Apikey=jsonResp.key;\r",
+									"let issueid=jsonResp.id;\r",
+									"pm.collectionVariables.set(\"key\",Apikey);\r",
+									"pm.collectionVariables.set(\"issueid\",issueid);\r",
+									"\r",
+									"pm.test(\"status code is 201\",()=>{\r",
+									"    pm.response.to.have.status(201);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n       \"project\":\r\n       {\r\n          \"key\": \"AP\",\r\n          \"name\": \"Api_Project\"\r\n       },\r\n       \"summary\": \"Post Man Issues for Batch 3\",\r\n       \"description\": {\r\n          \"type\": \"doc\",\r\n          \"version\": 1,\r\n          \"content\": [\r\n            {\r\n              \"type\": \"paragraph\",\r\n              \"content\": [\r\n                {\r\n                  \"type\": \"text\",\r\n                  \"text\": \"Batch 5 Testing\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        },\r\n       \"issuetype\": {\r\n          \"name\": \"Bug\"\r\n       }\r\n       \r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{url}}/rest/api/{{version}}/issue",
+							"protocol": "https",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"{{version}}",
+								"issue"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get an issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonResp=pm.response.json();\r",
+									"\r",
+									"pm.test(\"Validating id and key\",()=>{\r",
+									"    pm.expect(jsonResp.id).to.eql(pm.collectionVariables.get(\"issueid\"));\r",
+									"    pm.expect(jsonResp.key).to.eql(pm.collectionVariables.get(\"key\"));\r",
+									"})\r",
+									"\r",
+									"pm.test(\"Status code validation\",()=>{\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{url}}/rest/api/{{version}}/issue/{{issueid}}",
+							"protocol": "https",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"{{version}}",
+								"issue",
+								"{{issueid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update an issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fields\": {\r\n       \"project\":\r\n       {\r\n          \"key\": \"AP\",\r\n          \"name\": \"Api_Project\"\r\n       },\r\n       \"summary\": \"Post Man Issues for Batch 5 update\",\r\n       \"description\": {\r\n          \"type\": \"doc\",\r\n          \"version\": 1,\r\n          \"content\": [\r\n            {\r\n              \"type\": \"paragraph\",\r\n              \"content\": [\r\n                {\r\n                  \"type\": \"text\",\r\n                  \"text\": \"Batch 5 Testing\"\r\n                }\r\n              ]\r\n            }\r\n          ]\r\n        },\r\n       \"issuetype\": {\r\n          \"name\": \"Bug\"\r\n       }\r\n       \r\n   }\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{url}}/rest/api/{{version}}/issue/{{issueid}}",
+							"protocol": "https",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"{{version}}",
+								"issue",
+								"{{issueid}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an issue",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Delete status code\",()=>{\r",
+									"    pm.expect(pm.response.to.have.status(403));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{url}}/rest/api/{{version}}/issue/{{key}}",
+							"protocol": "https",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"rest",
+								"api",
+								"{{version}}",
+								"issue",
+								"{{key}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "{{Apitoken}}",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "preethi.pasupathi@gmail.com",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "version",
+			"value": "3",
+			"type": "string"
+		},
+		{
+			"key": "key",
+			"value": ""
+		},
+		{
+			"key": "issueid",
+			"value": ""
+		}
+	]
+}

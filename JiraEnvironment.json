@@ -1,0 +1,21 @@
+{
+	"id": "281a8773-2f53-4775-a0df-82b58725f793",
+	"name": "Jira",
+	"values": [
+		{
+			"key": "url",
+			"value": "prathepapasupathi.atlassian.net",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "Apitoken",
+			"value": "ATATT3xFfGF0vZnQ1FZ8TTDx1EKSAcMCkbHmpZKgUv6FHoCOELMj8xH3YoVXM53ihF4CnXFOSZs3HPRmeF-jwP3COnSX45JYGKAytSvUpvyuzu2srOcqpGgxl4O1Z9r13i_ygzFe87WtFAEwzEIvmVXY-PTvqMxc07KXEcPjk7aFOoCU-758Rwg=31237826",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-09-30T05:23:41.792Z",
+	"_postman_exported_using": "Postman/11.14.1"
+}
